@@ -1,0 +1,24 @@
+{
+  "name": "Str8-Blobbin",
+  "version": "1.0.0",
+  "description": "### Background and overview   Str8 Blobbin is an A to B style upscrolling game where the player starts as a full blob.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gregwaite/Str8-Blobbin.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gregwaite/Str8-Blobbin/issues"
+  },
+  "homepage": "https://github.com/gregwaite/Str8-Blobbin#readme",
+  "devDependencies": {
+    "webpack": "^4.29.2",
+    "webpack-cli": "^3.2.3"
+  }
+}
