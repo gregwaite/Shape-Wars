@@ -48,5 +48,6 @@
 - [ ] Scoring--gain points for acquiring health and destroying enemies, lose points for getting hit
 - [ ] Multiplayer--either two blobs on one screen or two screens with competing blobs--score would have to be implemented for the latter
 - [ ] Other power ups, speed, armor, attacks, etc
+- [ ] Dynamic sound increase/decrease
     
     
