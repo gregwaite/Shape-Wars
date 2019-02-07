@@ -9,10 +9,14 @@ class MovingObject {
 	}
 
 	handleKeypress(key) {
-		if (key.keyCode === 37) {
+		if (key.code === "ArrowLeft" || key.code === "KeyA") {
 			this.moveleft();
-		} else if (key.keyCode === 39) {
+		} else if (key.code === "ArrowRight" || key.code === "KeyD") {
 			this.moveright();
+		} else if (key.code === "ArrowUp" || key.code === "KeyW") {
+			this.moveup();
+		} else if (key.code === "ArrowDown" || key.code === "KeyS") {
+			this.movedown();
 		}
 	};
 
@@ -40,6 +44,16 @@ class MovingObject {
 	moveleft(){
 		this.ctx.clearRect(0, 0, 400, 400);
 		this.pos[0] -= 10;
+		this.drawCircle();
+	}
+	movedown() {
+		this.ctx.clearRect(0, 0, 400, 400);
+		this.pos[1] += 10;
+		this.drawCircle();
+	}
+	moveup(){
+		this.ctx.clearRect(0, 0, 400, 400);
+		this.pos[1] -= 10;
 		this.drawCircle();
 	}
 }
