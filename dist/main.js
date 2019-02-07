@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\n\nwindow.MovingObject = MovingObject;\n\nconsole.log(\"Webpack is working!\")\n\n\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("const MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\n\nwindow.MovingObject = MovingObject;\n\nconsole.log(\"Webpack is working!\")\n\n\ndocument.addEventListener(\"DOMContentLoaded\", () => {\n  const obj = new MovingObject({ pos: [200, 380], vel: 20, radius: 20, color: 'red' })\n  obj.drawCircle();\n\n  document.addEventListener(\"keydown\", (key) => {\n    obj.handleKeypress(key);\n  });\n});\n\n\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
@@ -104,7 +104,7 @@ eval("const MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("class MovingObject {\n\tconstructor(props) {\n\t\tthis.pos = props.pos;\n\t\tthis.vel = props.vel;\n\t\tthis.radius = props.radius;\n\t\tthis.color = props.color;\n\t\tthis.canvas = document.getElementById('canvas');\n\t\tthis.ctx = this.canvas.getContext('2d');\n\t}\n}\n\nmodule.exports = MovingObject;\n\n//# sourceURL=webpack:///./src/moving_object.js?");
+eval("class MovingObject {\n\tconstructor(props) {\n\t\tthis.pos = props.pos;\n\t\tthis.vel = props.vel;\n\t\tthis.radius = props.radius;\n\t\tthis.color = props.color;\n\t\tthis.canvas = document.getElementById('game-canvas');\n\t\tthis.ctx = this.canvas.getContext('2d');\n\t}\n\n\thandleKeypress(key) {\n\t\tif (key.keyCode === 37) {\n\t\t\tthis.moveleft();\n\t\t} else if (key.keyCode === 39) {\n\t\t\tthis.moveright();\n\t\t}\n\t};\n\n\tdrawCircle(){\n\t\tthis.ctx.fillStyle = this.color;\n\t\tthis.ctx.beginPath();\n\n\t\tthis.ctx.arc(\n\t\t\tthis.pos[0],\n\t\t\tthis.pos[1],\n\t\t\tthis.radius,\n\t\t\t0,\n\t\t\t2 * Math.PI,\n\t\t\tfalse\n\t\t);\n\t\t\n\t\tthis.ctx.fill();\n\t}\n\n\tmoveright(){\n\t\tthis.ctx.clearRect(0, 0, 400, 400);\n\t\tthis.pos[0] += 10;\n\t\tthis.drawCircle();\n\t}\n\tmoveleft(){\n\t\tthis.ctx.clearRect(0, 0, 400, 400);\n\t\tthis.pos[0] -= 10;\n\t\tthis.drawCircle();\n\t}\n}\n\n\nmodule.exports = MovingObject;\n\n//# sourceURL=webpack:///./src/moving_object.js?");
 
 /***/ })
 
