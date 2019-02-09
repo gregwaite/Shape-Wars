@@ -6,10 +6,12 @@ class MovingObject {
 		this.color = props.color;
 		this.canvas = document.getElementById('game-canvas');
 		this.ctx = this.canvas.getContext('2d');
+		this.up = false;
+		this.down = false;
+		this.right = false;
+		this.left = false;
 		this.draw = this.draw.bind(this);
-		this.speed = 0;
 	}
-
 
 	drawCircle(){
 		this.ctx.fillStyle = this.color;
@@ -34,37 +36,70 @@ class MovingObject {
 		this.ctx.closePath();
 	}
 
-	moveRight(){
+	move() {
 		let velocity;
+		this.checkIfInBounds();
 		if (this.constructor.name === "Enemy") {
-			velocity = 1;
+			velocity = [1, 1];
 		} else {
-			velocity = (this.vel[1] += 1);
+			velocity = this.vel;
 		}
-		this.pos[0] += velocity;
-	}
-	moveLeft(){
-		let velocity;
-		if (this.constructor.name === "Enemy") {
-			velocity = 1;
-		} else {
-			velocity = (this.vel[1] += 1);
+		if (this.left) {
+			this.vel[0] += 0.3;
+			this.pos[0] -= velocity[0];
+		} 
+		if (this.right) {
+			this.vel[0] += 0.3;
+			this.pos[0] += velocity[0];
+		} 
+		if (this.down) {
+			this.vel[1] += 0.3;
+			this.pos[1] += velocity[1];
+		} 
+		if (this.up) {
+			this.vel[1] += 0.3;
+			this.pos[1] -= velocity[1];
 		}
-		this.pos[0] -= velocity;
 	}
-	moveDown() {
-		let velocity;
-		if (this.constructor.name === "Enemy") {
-			velocity = 1;
-		} else {
-			velocity = (this.vel[1] += 1);
+
+	checkIfInBounds(){
+		if (!this.inBoundsLeft()) {
+			this.left = false;
+		} 
+		if (!this.inBoundsRight()) {
+			this.right = false;
+		} 
+		if (!this.inBoundsDown()) {
+			this.down = false;
+		} 
+		if (!this.inBoundsUp()) {
+			this.up = false;
 		}
-		
-		this.pos[1] += velocity;
 	}
-	moveUp() {
-		this.vel[1] += 1;
-		this.pos[1] -= this.vel[1];
+
+	inBoundsRight(){
+		if (this.pos[0] > this.canvas.width - 30) {
+			return false;
+		}
+		return true;
+	}
+	inBoundsLeft() {
+		if (this.pos[0] < 20) {
+			return false;
+		}
+		return true;
+	}
+	inBoundsUp() {
+		if (this.pos[1] < 20) {
+			return false;
+		}
+		return true;
+	}
+	inBoundsDown() {
+		if (this.pos[1] > this.canvas.height - 5) {
+			return false;
+		}
+		return true;
 	}
 }
 

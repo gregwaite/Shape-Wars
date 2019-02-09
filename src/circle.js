@@ -9,19 +9,31 @@ class Circle extends MovingObject {
     this.drawCircle();
   }
 
-  stopMovement(){
-    this.vel = [0,0];
+  stopMovement(key){
+    if (key.code === "ArrowLeft" || key.code === "KeyA") {
+      this.left = false;
+      this.vel[0] = 0;
+    } else if (key.code === "ArrowRight" || key.code === "KeyD") {
+      this.right = false;
+      this.vel[0] = 0;
+    } else if (key.code === "ArrowUp" || key.code === "KeyW") {
+      this.up = false;
+      this.vel[1] = 0;
+    } else if (key.code === "ArrowDown" || key.code === "KeyS") {
+      this.down = false;
+      this.vel[1] = 0;
+    }
   }
 
   handleKeypress(key) {
     if (key.code === "ArrowLeft" || key.code === "KeyA") {
-      this.moveLeft();
+      this.left = true;
     } else if (key.code === "ArrowRight" || key.code === "KeyD") {
-      this.moveRight();
+      this.right = true;
     } else if (key.code === "ArrowUp" || key.code === "KeyW") {
-      this.moveUp();
+      this.up = true;
     } else if (key.code === "ArrowDown" || key.code === "KeyS") {
-      this.moveDown();
+      this.down = true;
     }
   }
 

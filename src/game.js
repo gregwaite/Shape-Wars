@@ -11,7 +11,7 @@ class Game {
   }
 
   start(){
-    this.enemyFactory(10);
+    this.enemyFactory(6);
     this.player();
     setInterval(this.draw, 10);
   }
@@ -22,6 +22,7 @@ class Game {
       enemy.draw();
     });
     this.circle.draw();
+    this.circle.move();
     this.moveFleetDown();
   }
 
@@ -31,12 +32,12 @@ class Game {
       this.circle.handleKeypress(key);
     });
     document.addEventListener("keyup", (key) => {
-      this.circle.stopMovement();
+      this.circle.stopMovement(key);
     });
   }
 
   enemyFactory(waveNum) {
-    let enemyPos = Math.floor(800 / waveNum);
+    let enemyPos = Math.floor(400 / waveNum);
     let localFleet = [];
     for (let i = 0; i < waveNum; i++) {
       localFleet.push(new Enemy({ pos: [enemyPos, 40], vel: [0,0], radius: 30, color: 'blue' }));
@@ -46,17 +47,19 @@ class Game {
   }
 
   moveFleetDown() {
-    if (this.fleet[0].pos[1] < 600) {
+    if (this.fleet[0].pos[1] < 595) {
       this.fleet.forEach(enemy => {
         if (Math.floor(Math.random() * 2) === 0) {
-          enemy.moveRight();
+          enemy.right = true;
+          enemy.left = false;
         } else {
-          enemy.moveLeft();
+          enemy.left = true;
+          enemy.right = false;
         }
-        enemy.moveDown();
+        enemy.move();
       });
     } else {
-      this.enemyFactory(10);
+      this.enemyFactory(6);
     }
   }
 }
