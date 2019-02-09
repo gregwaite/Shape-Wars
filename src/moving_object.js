@@ -6,19 +6,9 @@ class MovingObject {
 		this.color = props.color;
 		this.canvas = document.getElementById('game-canvas');
 		this.ctx = this.canvas.getContext('2d');
+		this.draw = this.draw.bind(this);
 	}
 
-	handleKeypress(key) {
-		if (key.code === "ArrowLeft" || key.code === "KeyA") {
-			this.moveleft();
-		} else if (key.code === "ArrowRight" || key.code === "KeyD") {
-			this.moveright();
-		} else if (key.code === "ArrowUp" || key.code === "KeyW") {
-			this.moveup();
-		} else if (key.code === "ArrowDown" || key.code === "KeyS") {
-			this.movedown();
-		}
-	};
 
 	drawCircle(){
 		this.ctx.fillStyle = this.color;
@@ -36,25 +26,23 @@ class MovingObject {
 		this.ctx.fill();
 	}
 
-	moveright(){
-		this.ctx.clearRect(0, 0, 400, 400);
-		this.pos[0] += 10;
-		this.drawCircle();
+	drawRect() {
+		this.ctx.fillStyle = this.color;
+		this.ctx.beginPath();
+		this.ctx.fillRect(this.pos[0], this.pos[1], this.radius, this.radius);
 	}
-	moveleft(){
-		this.ctx.clearRect(0, 0, 400, 400);
-		this.pos[0] -= 10;
-		this.drawCircle();
+
+	moveRight(){
+		this.pos[0] += 15;
 	}
-	movedown() {
-		this.ctx.clearRect(0, 0, 400, 400);
-		this.pos[1] += 10;
-		this.drawCircle();
+	moveLeft(){
+		this.pos[0] -= 15;
 	}
-	moveup(){
-		this.ctx.clearRect(0, 0, 400, 400);
-		this.pos[1] -= 10;
-		this.drawCircle();
+	moveDown() {
+		this.pos[1] += 15;
+	}
+	moveUp() {
+		this.pos[1] -= 15;
 	}
 }
 

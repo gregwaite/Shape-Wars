@@ -86,6 +86,39 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./src/circle.js":
+/*!***********************!*\
+  !*** ./src/circle.js ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\n\nclass Circle extends MovingObject {\n  constructor(props) {\n    super(props);\n  }\n\n  draw() {\n    this.drawCircle();\n  }\n\n  handleKeypress(key) {\n    if (key.code === \"ArrowLeft\" || key.code === \"KeyA\") {\n      this.moveLeft();\n    } else if (key.code === \"ArrowRight\" || key.code === \"KeyD\") {\n      this.moveRight();\n    } else if (key.code === \"ArrowUp\" || key.code === \"KeyW\") {\n      this.moveUp();\n    } else if (key.code === \"ArrowDown\" || key.code === \"KeyS\") {\n      this.moveDown();\n    }\n  }\n\n}\n\nmodule.exports = Circle;\n\n//# sourceURL=webpack:///./src/circle.js?");
+
+/***/ }),
+
+/***/ "./src/enemy.js":
+/*!**********************!*\
+  !*** ./src/enemy.js ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\n\nclass Enemy extends MovingObject {\n  constructor(props) {\n    super(props);\n  }\n\n  draw() {\n    this.drawRect();\n  }\n\n\n\n\n}\n\nmodule.exports = Enemy;\n\n//# sourceURL=webpack:///./src/enemy.js?");
+
+/***/ }),
+
+/***/ "./src/game.js":
+/*!*********************!*\
+  !*** ./src/game.js ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const Circle = __webpack_require__(/*! ./circle.js */ \"./src/circle.js\");\nconst Enemy = __webpack_require__(/*! ./enemy.js */ \"./src/enemy.js\");\n\nclass Game {\n  constructor() {\n    this.fleet = [];\n    this.circle = null;\n    this.canvas = document.getElementById('game-canvas');\n    this.ctx = this.canvas.getContext('2d');\n    this.draw = this.draw.bind(this);\n  }\n\n  start(){\n    this.enemyFactory(10);\n    this.player();\n    requestAnimationFrame(this.draw);\n  }\n\n  draw(){\n    this.ctx.clearRect(0, 0, 800, 600);\n    this.fleet.forEach(enemy => {\n      enemy.draw();\n    });\n    this.circle.draw();\n    this.moveFleetDown();\n    requestAnimationFrame(this.draw);\n  }\n\n  player(){\n    this.circle = new Circle({ pos: [400, 570], vel: 20, radius: 20, color: 'red' });\n    document.addEventListener(\"keydown\", (key) => {\n      this.circle.handleKeypress(key);\n    });\n  }\n\n  enemyFactory(waveNum) {\n    let enemyPos = Math.floor(800 / waveNum);\n    for (let i = 0; i < waveNum; i++) {\n      this.fleet.push(new Enemy({ pos: [enemyPos, 40], vel: 20, radius: 30, color: 'blue' }));\n      enemyPos = enemyPos + Math.floor(800 / waveNum);\n    }\n  }\n\n  moveFleetDown() {\n    if (this.fleet[0].pos[1] < 600) {\n      this.fleet.forEach(enemy => {\n        enemy.moveDown();\n      });\n    }\n  }\n}\n\n\nmodule.exports = Game;\n\n//# sourceURL=webpack:///./src/game.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -93,7 +126,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src/moving_object.js\");\n\nwindow.MovingObject = MovingObject;\n\nconsole.log(\"Webpack is working!\")\n\n\ndocument.addEventListener(\"DOMContentLoaded\", () => {\n  const obj = new MovingObject({ pos: [200, 380], vel: 20, radius: 20, color: 'red' })\n  obj.drawCircle();\n\n  document.addEventListener(\"keydown\", (key) => {\n    obj.handleKeypress(key);\n  });\n});\n\n\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("const Game = __webpack_require__(/*! ./game.js */ \"./src/game.js\");\n\nconsole.log(\"Webpack is working!\");\n\n\ndocument.addEventListener(\"DOMContentLoaded\", () => {\n  const game = new Game();\n  game.start();\n});\n\n\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
@@ -104,7 +137,7 @@ eval("const MovingObject = __webpack_require__(/*! ./moving_object.js */ \"./src
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("class MovingObject {\n\tconstructor(props) {\n\t\tthis.pos = props.pos;\n\t\tthis.vel = props.vel;\n\t\tthis.radius = props.radius;\n\t\tthis.color = props.color;\n\t\tthis.canvas = document.getElementById('game-canvas');\n\t\tthis.ctx = this.canvas.getContext('2d');\n\t}\n\n\thandleKeypress(key) {\n\t\tif (key.code === \"ArrowLeft\" || key.code === \"KeyA\") {\n\t\t\tthis.moveleft();\n\t\t} else if (key.code === \"ArrowRight\" || key.code === \"KeyD\") {\n\t\t\tthis.moveright();\n\t\t} else if (key.code === \"ArrowUp\" || key.code === \"KeyW\") {\n\t\t\tthis.moveup();\n\t\t} else if (key.code === \"ArrowDown\" || key.code === \"KeyS\") {\n\t\t\tthis.movedown();\n\t\t}\n\t};\n\n\tdrawCircle(){\n\t\tthis.ctx.fillStyle = this.color;\n\t\tthis.ctx.beginPath();\n\n\t\tthis.ctx.arc(\n\t\t\tthis.pos[0],\n\t\t\tthis.pos[1],\n\t\t\tthis.radius,\n\t\t\t0,\n\t\t\t2 * Math.PI,\n\t\t\tfalse\n\t\t);\n\t\t\n\t\tthis.ctx.fill();\n\t}\n\n\tmoveright(){\n\t\tthis.ctx.clearRect(0, 0, 400, 400);\n\t\tthis.pos[0] += 10;\n\t\tthis.drawCircle();\n\t}\n\tmoveleft(){\n\t\tthis.ctx.clearRect(0, 0, 400, 400);\n\t\tthis.pos[0] -= 10;\n\t\tthis.drawCircle();\n\t}\n\tmovedown() {\n\t\tthis.ctx.clearRect(0, 0, 400, 400);\n\t\tthis.pos[1] += 10;\n\t\tthis.drawCircle();\n\t}\n\tmoveup(){\n\t\tthis.ctx.clearRect(0, 0, 400, 400);\n\t\tthis.pos[1] -= 10;\n\t\tthis.drawCircle();\n\t}\n}\n\n\nmodule.exports = MovingObject;\n\n//# sourceURL=webpack:///./src/moving_object.js?");
+eval("class MovingObject {\n\tconstructor(props) {\n\t\tthis.pos = props.pos;\n\t\tthis.vel = props.vel;\n\t\tthis.radius = props.radius;\n\t\tthis.color = props.color;\n\t\tthis.canvas = document.getElementById('game-canvas');\n\t\tthis.ctx = this.canvas.getContext('2d');\n\t\tthis.draw = this.draw.bind(this);\n\t}\n\n\n\tdrawCircle(){\n\t\tthis.ctx.fillStyle = this.color;\n\t\tthis.ctx.beginPath();\n\n\t\tthis.ctx.arc(\n\t\t\tthis.pos[0],\n\t\t\tthis.pos[1],\n\t\t\tthis.radius,\n\t\t\t0,\n\t\t\t2 * Math.PI,\n\t\t\tfalse\n\t\t);\n\t\t\n\t\tthis.ctx.fill();\n\t}\n\n\tdrawRect() {\n\t\tthis.ctx.fillStyle = this.color;\n\t\tthis.ctx.beginPath();\n\t\tthis.ctx.fillRect(this.pos[0], this.pos[1], this.radius, this.radius);\n\t}\n\n\tmoveRight(){\n\t\tthis.pos[0] += 15;\n\t}\n\tmoveLeft(){\n\t\tthis.pos[0] -= 15;\n\t}\n\tmoveDown() {\n\t\tthis.pos[1] += 15;\n\t}\n\tmoveUp() {\n\t\tthis.pos[1] -= 15;\n\t}\n}\n\n\nmodule.exports = MovingObject;\n\n//# sourceURL=webpack:///./src/moving_object.js?");
 
 /***/ })
 
