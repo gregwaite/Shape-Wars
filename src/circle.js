@@ -9,6 +9,10 @@ class Circle extends MovingObject {
     this.drawCircle();
   }
 
+  stopMovement(){
+    this.vel = [0,0];
+  }
+
   handleKeypress(key) {
     if (key.code === "ArrowLeft" || key.code === "KeyA") {
       this.moveLeft();

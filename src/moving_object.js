@@ -7,6 +7,7 @@ class MovingObject {
 		this.canvas = document.getElementById('game-canvas');
 		this.ctx = this.canvas.getContext('2d');
 		this.draw = this.draw.bind(this);
+		this.speed = 0;
 	}
 
 
@@ -34,16 +35,36 @@ class MovingObject {
 	}
 
 	moveRight(){
-		this.pos[0] += 2;
+		let velocity;
+		if (this.constructor.name === "Enemy") {
+			velocity = 1;
+		} else {
+			velocity = (this.vel[1] += 1);
+		}
+		this.pos[0] += velocity;
 	}
 	moveLeft(){
-		this.pos[0] -= 2;
+		let velocity;
+		if (this.constructor.name === "Enemy") {
+			velocity = 1;
+		} else {
+			velocity = (this.vel[1] += 1);
+		}
+		this.pos[0] -= velocity;
 	}
 	moveDown() {
-		this.pos[1] += 2;
+		let velocity;
+		if (this.constructor.name === "Enemy") {
+			velocity = 1;
+		} else {
+			velocity = (this.vel[1] += 1);
+		}
+		
+		this.pos[1] += velocity;
 	}
 	moveUp() {
-		this.pos[1] -= 2;
+		this.vel[1] += 1;
+		this.pos[1] -= this.vel[1];
 	}
 }
 
