@@ -22,27 +22,28 @@ class MovingObject {
 			2 * Math.PI,
 			false
 		);
-		
 		this.ctx.fill();
+		this.ctx.closePath();
 	}
 
 	drawRect() {
 		this.ctx.fillStyle = this.color;
 		this.ctx.beginPath();
 		this.ctx.fillRect(this.pos[0], this.pos[1], this.radius, this.radius);
+		this.ctx.closePath();
 	}
 
 	moveRight(){
-		this.pos[0] += 15;
+		this.pos[0] += 2;
 	}
 	moveLeft(){
-		this.pos[0] -= 15;
+		this.pos[0] -= 2;
 	}
 	moveDown() {
-		this.pos[1] += 15;
+		this.pos[1] += 2;
 	}
 	moveUp() {
-		this.pos[1] -= 15;
+		this.pos[1] -= 2;
 	}
 }
 

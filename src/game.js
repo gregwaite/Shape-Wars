@@ -13,7 +13,7 @@ class Game {
   start(){
     this.enemyFactory(10);
     this.player();
-    requestAnimationFrame(this.draw);
+    setInterval(this.draw, 1);
   }
 
   draw(){
@@ -23,7 +23,6 @@ class Game {
     });
     this.circle.draw();
     this.moveFleetDown();
-    requestAnimationFrame(this.draw);
   }
 
   player(){
@@ -35,10 +34,12 @@ class Game {
 
   enemyFactory(waveNum) {
     let enemyPos = Math.floor(800 / waveNum);
+    let localFleet = [];
     for (let i = 0; i < waveNum; i++) {
-      this.fleet.push(new Enemy({ pos: [enemyPos, 40], vel: 20, radius: 30, color: 'blue' }));
+      localFleet.push(new Enemy({ pos: [enemyPos, 40], vel: 20, radius: 30, color: 'blue' }));
       enemyPos = enemyPos + Math.floor(800 / waveNum);
     }
+    this.fleet = localFleet;
   }
 
   moveFleetDown() {
@@ -46,6 +47,8 @@ class Game {
       this.fleet.forEach(enemy => {
         enemy.moveDown();
       });
+    } else {
+      this.enemyFactory(10);
     }
   }
 }
