@@ -16,6 +16,9 @@ class Enemy extends MovingObject {
     } else if (this.shape === "pent") {
       this.color = '#25fd03';
       this.drawPent();
+    } else if (this.shape === 'final') {
+      this.color = 'white';
+      this.drawFinalBoss();
     }
   }
   drawTri(){
@@ -51,15 +54,15 @@ class Enemy extends MovingObject {
     this.ctx.stroke();
   }
 
-  // finalyBoss() {
-  //   this.ctx.fillStyle = this.color;
-  //   this.ctx.beginPath();
-  //   this.ctx.moveTo(this.pos[0], this.pos[1]);
-  //   this.ctx.lineTo((this.pos[1] * 2), this.pos[0]);
-  //   this.ctx.lineTo((this.pos[1] * 2), (this.pos[0] / 3));
-  //   this.ctx.fill();
-  //   this.ctx.closePath();
-  // }
+  finalyBoss() {
+    this.ctx.fillStyle = this.color;
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.pos[0], this.pos[1]);
+    this.ctx.lineTo((this.pos[1] * 2), this.pos[0]);
+    this.ctx.lineTo((this.pos[1] * 2), (this.pos[0] / 3));
+    this.ctx.fill();
+    this.ctx.closePath();
+  }
 
 
 

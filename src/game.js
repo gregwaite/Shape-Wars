@@ -16,10 +16,11 @@ class Game {
     this.gameOver = false;
     this.finalWave = null;
     this.neverOver = true;
+    this.factoryNum = 6;
   }
 
   start(){
-    this.enemyFactory(6);
+    this.enemyFactory(this.factoryNum);
     this.player();
     this.health = [new Health({
       pos: [400, 50],
@@ -46,6 +47,31 @@ class Game {
 
   messages(){
     if (this.gameOver) {
+      this.handleMessage('game over');
+    } else if (this.healthCount === 0 && this.waveNum === 1 && this.waveCount === 1) {
+      this.handleMessage('norm', "This is your family. Eat them to gain their courage"); 
+    } else if (this.healthCount === 3 && this.waveNum === 1 && this.waveCount === 1) {
+      this.handleMessage('norm', "Oh no! The triangles are attacking cause you're a cannibal!")
+    } else if (this.healthCount === 3 && this.waveNum === 2 && this.waveCount === 1) {
+      this.handleMessage('norm', "Oh no! The rectangles don't like cannibalism either!");;
+    } else if (this.healthCount === 3 && this.waveNum === 3) {
+      this.handleMessage('norm', "Ahh! They're working together!");
+    } else if (this.healthCount === 3 && this.waveNum === 4) {
+      this.handleMessage('norm', "Looks like they're breeding!");
+    } else if (this.healthCount === 3 && this.waveNum === 5) {
+      this.handleMessage('norm', "Oh no, the whole family!");
+    } else if (this.waveNum >= 10) {
+      this.factoryNum = 10;
+      this.handleMessage('norm', "Well, we're boned");
+    }
+  }
+
+  handleMessage(type, text) {
+    if (type === 'norm') {
+      this.circle.ctx.font = "14px Helvetica";
+      this.circle.ctx.fillStyle = 'white';
+      this.circle.ctx.fillText(text, this.canvas.width / 20, this.canvas.height / 2);
+    } else if (type === 'game over') {
       if (this.neverOver) {
         this.neverOver = false;
         this.finalWave = this.waveNum;
@@ -56,59 +82,29 @@ class Game {
       this.circle.ctx.font = "14px Helvetica";
       this.circle.ctx.fillStyle = 'white';
       this.circle.ctx.fillText(`You made it to wave ${this.finalWave}. Good job?`, this.canvas.width / 20, this.canvas.height / 2);
-    } else if (this.healthCount === 0 && this.waveNum === 1 && this.waveCount === 1) {
-      this.circle.ctx.font = "14px Helvetica";
-      this.circle.ctx.fillStyle = 'white';
-      this.circle.ctx.fillText("This is your family. Eat them to gain their courage", this.canvas.width / 20, this.canvas.height / 2);
-    } else if (this.healthCount === 3 && this.waveNum === 1 && this.waveCount === 1) {
-      this.circle.ctx.font = "14px Helvetica";
-      this.circle.ctx.fillStyle = 'white';
-      this.circle.ctx.fillText("Oh no! The triangles are attacking cause you're a cannibal!", this.canvas.width / 20, this.canvas.height / 2);
-    } else if (this.healthCount === 3 && this.waveNum === 2 && this.waveCount === 1) {
-      this.circle.ctx.font = "14px Helvetica";
-      this.circle.ctx.fillStyle = 'white';
-      this.circle.ctx.fillText("Oh no! The rectangles don't like cannibalism either!", this.canvas.width / 20, this.canvas.height / 2);
-    } else if (this.healthCount === 3 && this.waveNum === 3) {
-      this.circle.ctx.font = "14px Helvetica";
-      this.circle.ctx.fillStyle = 'white';
-      this.circle.ctx.fillText("Ahh! They're working together!", this.canvas.width / 20, this.canvas.height / 2);
-    } else if (this.healthCount === 3 && this.waveNum === 4) {
-      this.circle.ctx.font = "14px Helvetica";
-      this.circle.ctx.fillStyle = 'white';
-      this.circle.ctx.fillText("Looks like they're breeding!", this.canvas.width / 20, this.canvas.height / 2);
-    } else if (this.healthCount === 3 && this.waveNum === 5) {
-      this.circle.ctx.font = "14px Helvetica";
-      this.circle.ctx.fillStyle = 'white';
-      this.circle.ctx.fillText("Oh no, the whole family!", this.canvas.width / 20, this.canvas.height / 2);
-    } else if (this.waveNum >= 10) {
-      this.circle.ctx.font = "14px Helvetica";
-      this.circle.ctx.fillStyle = 'white';
-      this.circle.ctx.fillText("Well, we're boned", this.canvas.width / 20, this.canvas.height / 2);
     }
   }
 
   checkWaves(){
     if (this.waveNum < 4 && this.waveCount > 3) {
-      this.waveCount = 1;
-      this.waveNum += 1;
-      this.healthCount = 0;
-      this.enemyFactory(6)
+      this.handleWaveCheck();
     } else if (this.waveNum >= 4 && this.waveNum < 10 && this.waveCount > 5) {
-      this.waveCount = 1;
-      this.waveNum += 1;
-      this.healthCount = 0;
-      this.enemyFactory(6)
-    } else if (this.waveNum >= 10 && this.waveCount > 20) {
-      this.waveCount = 1;
-      this.waveNum += 1;
-      this.healthCount = 0;
-      this.enemyFactory(6)
+      this.handleWaveCheck();
+    } else if (this.waveNum >= 10 && this.waveCount > 15) {
+      this.handleWaveCheck();
     } else {
       this.fleet.forEach(enemy => {
         enemy.draw();
       });
       this.moveFleetDown();
     } 
+  }
+
+  handleWaveCheck(){
+    this.waveCount = 1;
+    this.waveNum += 1;
+    this.healthCount = 0;
+    this.enemyFactory(this.factoryNum);
   }
 
   player(){
@@ -130,21 +126,15 @@ class Game {
         localShape = 'tri';
       } else if (this.waveNum === 2){
         localShape = 'rect';
-      } else if (this.waveNum === 3 && i % 2 === 0) {
-        localShape = 'rect';
-      } else if (this.waveNum === 3 && i % 2 === 1) {
-        localShape = 'tri';
-      } else if (this.waveNum === 4 || this.waveNum > 4 && (i === 0 || i === 3)) {
-        localShape = 'pent';
-      } else if (this.waveNum > 4 && (i === 2 || i === 5)) {
-        localShape = 'tri';
-      } else if (this.waveNum > 4 && (i === 1 || i === 4)) {
-        localShape = 'rect';
+      } else if (this.waveNum === 3) {
+        localShape = shapeNames[i%2];
+      } else if (this.waveNum === 4) {
+        localShape = "pent";
+      } else if (this.waveNum > 4) {
+        localShape = shapeNames[i%3];
       }
-    
       localFleet.push(new Enemy({ pos: [fleetObjPos, 40], vel: [0, 0], radius: 30, color: 'blue', game: this, shape: localShape}));
       fleetObjPos = fleetObjPos + Math.floor(800 / fleetCount);
-
     }
     this.fleet = localFleet;
   }
@@ -164,7 +154,7 @@ class Game {
       });
     } else {
       this.waveCount += 1;
-      this.enemyFactory(6);
+      this.enemyFactory(this.factoryNum);
     }
   }
 
@@ -207,5 +197,10 @@ class Game {
   }
 }
 
+const shapeNames = [
+  'tri', 
+  'rect',
+  'pent', 
+];
 
 module.exports = Game;
