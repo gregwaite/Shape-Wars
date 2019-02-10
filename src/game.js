@@ -33,16 +33,51 @@ class Game {
     this.collisionDetection();
     this.circle.draw();
     this.circle.move();
-    if (this.gameOver) {
-      this.circle.ctx.font = "30px Helvetica";
-      this.circle.ctx.strokeStyle = 'white';
-      this.circle.ctx.strokeText("Game Over", this.canvas.width / 2, this.canvas.height / 2);
-    }
+    this.messages();
     if (this.healthCount < 3) {
       this.moveHealthDown();
       this.health[0].draw();
     } else {
       this.checkWaves();
+    }
+  }
+
+  messages(){
+    if (this.gameOver) {
+      this.circle.ctx.font = "30px Helvetica";
+      this.circle.ctx.strokeStyle = 'white';
+      this.circle.ctx.strokeText("Game Over", (this.canvas.width / 2) + 50, this.canvas.height / 2);
+      this.circle.ctx.font = "14px Helvetica";
+      this.circle.ctx.fillStyle = 'white';
+      this.circle.ctx.fillText(`You made it to wave ${this.waveNum}. Good job?`, this.canvas.width / 20, this.canvas.height / 2);
+    } else if (this.healthCount === 0 && this.waveNum === 1 && this.waveCount === 1) {
+      this.circle.ctx.font = "14px Helvetica";
+      this.circle.ctx.fillStyle = 'white';
+      this.circle.ctx.fillText("This is your family. Eat them to gain their courage", this.canvas.width / 20, this.canvas.height / 2);
+    } else if (this.healthCount === 3 && this.waveNum === 1 && this.waveCount === 1) {
+      this.circle.ctx.font = "14px Helvetica";
+      this.circle.ctx.fillStyle = 'white';
+      this.circle.ctx.fillText("Oh no! The triangles are attacking cause you're a cannibal!", this.canvas.width / 20, this.canvas.height / 2);
+    } else if (this.healthCount === 3 && this.waveNum === 2 && this.waveCount === 1) {
+      this.circle.ctx.font = "14px Helvetica";
+      this.circle.ctx.fillStyle = 'white';
+      this.circle.ctx.fillText("Oh no! The rectangles don't like cannibalism either!", this.canvas.width / 20, this.canvas.height / 2);
+    } else if (this.healthCount === 3 && this.waveNum === 3) {
+      this.circle.ctx.font = "14px Helvetica";
+      this.circle.ctx.fillStyle = 'white';
+      this.circle.ctx.fillText("Ahh! They're working together!", this.canvas.width / 20, this.canvas.height / 2);
+    } else if (this.healthCount === 3 && this.waveNum === 4) {
+      this.circle.ctx.font = "14px Helvetica";
+      this.circle.ctx.fillStyle = 'white';
+      this.circle.ctx.fillText("Looks like they're breeding!", this.canvas.width / 20, this.canvas.height / 2);
+    } else if (this.healthCount === 3 && this.waveNum === 5) {
+      this.circle.ctx.font = "14px Helvetica";
+      this.circle.ctx.fillStyle = 'white';
+      this.circle.ctx.fillText("Oh no, the whole family!", this.canvas.width / 20, this.canvas.height / 2);
+    } else if (this.waveNum >= 10) {
+      this.circle.ctx.font = "14px Helvetica";
+      this.circle.ctx.fillStyle = 'white';
+      this.circle.ctx.fillText("Well, we're boned", this.canvas.width / 20, this.canvas.height / 2);
     }
   }
 

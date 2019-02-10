@@ -69,7 +69,9 @@ class MovingObject {
 		return true;
 	}
 	inBoundsUp() {
-		if (this.pos[1] < 20) {
+		if (this.constructor.name === "Circle" && this.pos[1] < 300){
+			return false;
+		} else if (this.pos[1] < 20) {
 			return false;
 		}
 		return true;
