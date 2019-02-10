@@ -14,6 +14,8 @@ class Game {
     this.health = null;
     this.healthCount = 0;
     this.gameOver = false;
+    this.finalWave = null;
+    this.neverOver = true;
   }
 
   start(){
@@ -44,12 +46,16 @@ class Game {
 
   messages(){
     if (this.gameOver) {
+      if (this.neverOver) {
+        this.neverOver = false;
+        this.finalWave = this.waveNum;
+      }
       this.circle.ctx.font = "30px Helvetica";
       this.circle.ctx.strokeStyle = 'white';
       this.circle.ctx.strokeText("Game Over", (this.canvas.width / 2) + 50, this.canvas.height / 2);
       this.circle.ctx.font = "14px Helvetica";
       this.circle.ctx.fillStyle = 'white';
-      this.circle.ctx.fillText(`You made it to wave ${this.waveNum}. Good job?`, this.canvas.width / 20, this.canvas.height / 2);
+      this.circle.ctx.fillText(`You made it to wave ${this.finalWave}. Good job?`, this.canvas.width / 20, this.canvas.height / 2);
     } else if (this.healthCount === 0 && this.waveNum === 1 && this.waveCount === 1) {
       this.circle.ctx.font = "14px Helvetica";
       this.circle.ctx.fillStyle = 'white';
