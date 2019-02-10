@@ -35,12 +35,12 @@ class Game {
     if (this.healthCount < 3) {
       this.moveHealthDown();
       this.health[0].draw();
-    } else if (this.waveNum < 3 && this.waveCount > 1){
+    } else if (this.waveNum < 4 && this.waveCount > 3){
       this.waveCount = 1;
       this.waveNum += 1;
       this.healthCount = 0;
       this.enemyFactory(6)
-    } else if (this.waveNum >= 3 && this.waveNum < 10 && this.waveCount > 1){
+    } else if (this.waveNum >= 4 && this.waveNum < 10 && this.waveCount > 5){
       this.waveCount = 1;
       this.waveNum += 1;
       this.healthCount = 0;
