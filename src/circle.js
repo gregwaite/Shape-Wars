@@ -53,7 +53,7 @@ class Circle extends MovingObject {
     if (this.gameOver()){
       console.log("You lose, dingus")
     } else if (fleetObj.constructor.name === "Enemy"){
-      this.radius -= .3;
+      this.radius -= 0.5;
     } else if (fleetObj.constructor.name === "Health") {
       delete this.game.health[0];
       this.game.healthCount += 1;
