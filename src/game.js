@@ -22,7 +22,6 @@ class Game {
       pos: [400, 50],
       vel: [0, 0],
       radius: 20,
-      color: 'orange',
       game: this,
     })];
     setInterval(this.draw, 10);
@@ -36,18 +35,21 @@ class Game {
     if (this.healthCount < 3) {
       this.moveHealthDown();
       this.health[0].draw();
-    } else if (this.waveNum < 3 && this.waveCount > 5){
-      this.waveCount = 0;
+    } else if (this.waveNum < 3 && this.waveCount > 1){
+      this.waveCount = 1;
       this.waveNum += 1;
       this.healthCount = 0;
-    } else if (this.waveNum >= 3 && this.waveNum < 10 && this.waveCount > 10){
-      this.waveCount = 0;
+      this.enemyFactory(6)
+    } else if (this.waveNum >= 3 && this.waveNum < 10 && this.waveCount > 1){
+      this.waveCount = 1;
       this.waveNum += 1;
       this.healthCount = 0;
-    } else if (this.waveNum >=10 && this.waveCount > 20){
-      this.waveCount = 0;
+      this.enemyFactory(6)
+    } else if (this.waveNum >= 10 && this.waveCount > 20){
+      this.waveCount = 1;
       this.waveNum += 1;
       this.healthCount = 0;
+      this.enemyFactory(6)
     } else {
       this.fleet.forEach(enemy => {
         enemy.draw();
@@ -66,12 +68,29 @@ class Game {
     });
   }
 
-  enemyFactory(waveNum) {
-    let fleetObjPos = Math.floor(400 / waveNum);
+  enemyFactory(fleetCount) {
+    let fleetObjPos = Math.floor(400 / fleetCount);
     let localFleet = [];
-    for (let i = 0; i < waveNum; i++) {
-      localFleet.push(new Enemy({ pos: [fleetObjPos, 40], vel: [0, 0], radius: 30, color: 'blue', game: this }));
-      fleetObjPos = fleetObjPos + Math.floor(800 / waveNum);
+    for (let i = 0; i < fleetCount; i++) {
+      let localShape;
+      if (this.waveNum === 1) {
+        localShape = 'tri';
+      } else if (this.waveNum === 2){
+        localShape = 'rect';
+      } else if (this.waveNum === 3 && i % 2 === 0) {
+        localShape = 'rect';
+      } else if (this.waveNum === 3 && i % 2 === 1) {
+        localShape = 'tri';
+      } else if (this.waveNum === 4 || this.waveNum > 4 && (i === 0 || i === 3)) {
+        localShape = 'pent';
+      } else if (this.waveNum > 4 && (i === 2 || i === 5)) {
+        localShape = 'tri';
+      } else if (this.waveNum > 4 && (i === 1 || i === 4)) {
+        localShape = 'rect';
+      }
+    
+      localFleet.push(new Enemy({ pos: [fleetObjPos, 40], vel: [0, 0], radius: 30, color: 'blue', game: this, shape: localShape}));
+      fleetObjPos = fleetObjPos + Math.floor(800 / fleetCount);
 
     }
     this.fleet = localFleet;
@@ -91,8 +110,8 @@ class Game {
         enemy.move();
       });
     } else {
-      this.enemyFactory(6);
       this.waveCount += 1;
+      this.enemyFactory(6);
     }
   }
 
@@ -108,6 +127,7 @@ class Game {
         game: this,
       })];
     } else {
+      delete this.health[0];
       this.healthCount += 1;
     }
   }
