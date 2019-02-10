@@ -54,7 +54,7 @@ class Enemy extends MovingObject {
     this.ctx.stroke();
   }
 
-  finalyBoss() {
+  drawFinalBoss() {
     this.ctx.fillStyle = this.color;
     this.ctx.beginPath();
     this.ctx.moveTo(this.pos[0], this.pos[1]);
