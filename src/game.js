@@ -13,6 +13,7 @@ class Game {
     this.waveCount = 1;
     this.health = null;
     this.healthCount = 0;
+    this.gameOver = false;
   }
 
   start(){
@@ -32,20 +33,31 @@ class Game {
     this.collisionDetection();
     this.circle.draw();
     this.circle.move();
+    if (this.gameOver) {
+      this.circle.ctx.font = "30px Helvetica";
+      this.circle.ctx.strokeStyle = 'white';
+      this.circle.ctx.strokeText("Game Over", this.canvas.width / 2, this.canvas.height / 2);
+    }
     if (this.healthCount < 3) {
       this.moveHealthDown();
       this.health[0].draw();
-    } else if (this.waveNum < 4 && this.waveCount > 3){
+    } else {
+      this.checkWaves();
+    }
+  }
+
+  checkWaves(){
+    if (this.waveNum < 4 && this.waveCount > 3) {
       this.waveCount = 1;
       this.waveNum += 1;
       this.healthCount = 0;
       this.enemyFactory(6)
-    } else if (this.waveNum >= 4 && this.waveNum < 10 && this.waveCount > 5){
+    } else if (this.waveNum >= 4 && this.waveNum < 10 && this.waveCount > 5) {
       this.waveCount = 1;
       this.waveNum += 1;
       this.healthCount = 0;
       this.enemyFactory(6)
-    } else if (this.waveNum >= 10 && this.waveCount > 20){
+    } else if (this.waveNum >= 10 && this.waveCount > 20) {
       this.waveCount = 1;
       this.waveNum += 1;
       this.healthCount = 0;
@@ -142,13 +154,13 @@ class Game {
         this.circle.handleCollision(fleetObj, i);
       }
     });
-    this.health.forEach((fleetObj, i) => {
-      let dx = this.circle.pos[0] - fleetObj.pos[0];
-      let dy = this.circle.pos[1] - fleetObj.pos[1];
+    this.health.forEach((healthObj, i) => {
+      let dx = this.circle.pos[0] - healthObj.pos[0];
+      let dy = this.circle.pos[1] - healthObj.pos[1];
       let distance = Math.sqrt(dx * dx + dy * dy);
 
-      if (distance < this.circle.radius + fleetObj.radius) {
-        this.circle.handleCollision(fleetObj, i);
+      if (distance < this.circle.radius + healthObj.radius) {
+        this.circle.handleCollision(healthObj, i);
       }
     });
   }

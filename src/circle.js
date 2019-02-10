@@ -51,7 +51,7 @@ class Circle extends MovingObject {
 
   handleCollision(fleetObj, i) {
     if (this.gameOver()){
-      console.log("You lose, dingus")
+      this.game.gameOver = true;
     } else if (fleetObj.constructor.name === "Enemy"){
       this.radius -= 0.5;
     } else if (fleetObj.constructor.name === "Health") {
