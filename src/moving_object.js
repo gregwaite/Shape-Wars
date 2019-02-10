@@ -4,6 +4,7 @@ class MovingObject {
 		this.vel = props.vel;
 		this.radius = props.radius;
 		this.color = props.color;
+		this.game = props.game;
 		this.canvas = document.getElementById('game-canvas');
 		this.ctx = this.canvas.getContext('2d');
 		this.up = false;
@@ -13,34 +14,11 @@ class MovingObject {
 		this.draw = this.draw.bind(this);
 	}
 
-	drawCircle(){
-		this.ctx.fillStyle = this.color;
-		this.ctx.beginPath();
-
-		this.ctx.arc(
-			this.pos[0],
-			this.pos[1],
-			this.radius,
-			0,
-			2 * Math.PI,
-			false
-		);
-		this.ctx.fill();
-		this.ctx.closePath();
-	}
-
-	drawRect() {
-		this.ctx.fillStyle = this.color;
-		this.ctx.beginPath();
-		this.ctx.fillRect(this.pos[0], this.pos[1], this.radius, this.radius);
-		this.ctx.closePath();
-	}
-
 	move() {
 		let velocity;
 		this.checkIfInBounds();
-		if (this.constructor.name === "Enemy") {
-			velocity = [1, 1];
+		if (this.constructor.name === "Enemy" || this.constructor.name === "Health") {
+			velocity = [this.game.waveNum, this.game.waveNum];
 		} else {
 			velocity = this.vel;
 		}

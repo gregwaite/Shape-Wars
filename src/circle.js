@@ -1,4 +1,5 @@
 const MovingObject = require("./moving_object.js");
+const Health = require("./health.js");
 
 class Circle extends MovingObject {
   constructor(props) {
@@ -6,7 +7,18 @@ class Circle extends MovingObject {
   }
 
   draw() {
-    this.drawCircle();
+    this.ctx.fillStyle = this.color;
+    this.ctx.beginPath();
+      this.ctx.arc(
+        this.pos[0],
+        this.pos[1],
+        this.radius,
+        0,
+        2 * Math.PI,
+        false
+      );
+      this.ctx.fill();
+    this.ctx.closePath();
   }
 
   stopMovement(key){
@@ -35,6 +47,25 @@ class Circle extends MovingObject {
     } else if (key.code === "ArrowDown" || key.code === "KeyS") {
       this.down = true;
     }
+  }
+
+  handleCollision(fleetObj, i) {
+    if (this.gameOver()){
+      console.log("You lose, dingus")
+    } else if (fleetObj.constructor.name === "Enemy"){
+      this.radius -= .3;
+    } else if (fleetObj.constructor.name === "Health") {
+      delete this.game.health[0];
+      this.game.healthCount += 1;
+      this.radius += 10;
+    }
+  }
+
+  gameOver(){
+    if (this.radius < 5) {
+      return true;
+    }
+    return false;
   }
 
 }
