@@ -18,7 +18,9 @@ class MovingObject {
 	move() {
 		let velocity;
 		this.checkIfInBounds();
-		if (this.constructor.name === "Enemy" || this.constructor.name === "Health") {
+		if (this.shape === 'final') {
+			velocity = this.vel;
+		} else if (this.constructor.name === "Enemy" || this.constructor.name === "Health") {
 			velocity = [this.game.waveNum, this.game.waveNum];
 		} else {
 			velocity = this.vel;
