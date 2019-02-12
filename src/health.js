@@ -3,7 +3,7 @@ const MovingObject = require("./moving_object.js");
 class Health extends MovingObject {
   constructor(props) {
     super(props);
-    this.radius = 20;
+    this.radius = 10;
     this.color = "red";
     this.down = true;
   }

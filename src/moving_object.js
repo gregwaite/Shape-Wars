@@ -18,28 +18,26 @@ class MovingObject {
 	move() {
 		let velocity;
 		this.checkIfInBounds();
-		if (this.game.waveNum > 14 && this.constructor.name !== "Circle") {
-			velocity = 	[1,1];
-		} else if (this.constructor.name === "Enemy" || this.constructor.name === "Health") {
+		if (this.constructor.name === "Enemy" || this.constructor.name === "Health") {
 			velocity = [this.game.waveNum, this.game.waveNum];
 		} else {
 			velocity = this.vel;
 		}
 		if (this.left) {
-			this.vel[0] += 0.3;
-			this.pos[0] -= velocity[0];
+			this.vel[0] += 0.5;
+			this.pos[0] -= velocity[0] + 2;
 		} 
 		if (this.right) {
-			this.vel[0] += 0.3;
-			this.pos[0] += velocity[0];
+			this.vel[0] += 0.5;
+			this.pos[0] += velocity[0] + 2;
 		} 
 		if (this.down) {
-			this.vel[1] += 0.3;
-			this.pos[1] += velocity[1];
+			this.vel[1] += 0.5;
+			this.pos[1] += velocity[1] + 3;
 		} 
 		if (this.up) {
 			this.vel[1] += 0.3;
-			this.pos[1] -= velocity[1];
+			this.pos[1] -= velocity[1] + 2;
 		}
 	}
 

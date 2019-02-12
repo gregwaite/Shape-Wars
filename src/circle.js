@@ -53,13 +53,59 @@ class Circle extends MovingObject {
     if (this.gameOver()){
       this.game.gameOver = true;
     } else if (fleetObj.constructor.name === "Enemy"){
-      this.radius -= 0.5;
+      this.radius -= 0.8;
+      this.damageAnimation();
     } else if (fleetObj.constructor.name === "Health") {
       delete this.game.health[0];
       this.game.healthCount += 1;
-      this.radius += 10;
+      this.radius += 5;
     }
   }
+
+  damageAnimation() {
+    let hurt = [];
+    const hurtPos = [
+      [this.pos[0] + 30, this.pos[1]],
+      [this.pos[0] + 30, this.pos[1] + 30],
+      [this.pos[0], this.pos[1] + 30],
+      [this.pos[0] - 30, this.pos[1] + 30],
+      [this.pos[0] - 30, this.pos[1]],
+      [this.pos[0] - 30, this.pos[1] - 30],
+      [this.pos[0], this.pos[1] - 30],
+      [this.pos[0] + 30, this.pos[1] - 30],
+    ];
+    const directions = [
+      "right",
+      ["down", "right"],
+      "down",
+      ["down", "left"],
+      "left",
+      ["up", "left"],
+      "up",
+      ["up", "right"],
+
+    ]
+      for (let i = 0; i < 8; i++) {
+          hurt.push(new Circle({
+            pos: hurtPos[i],
+            vel: [1, 1],
+            radius: 5,
+            color: 'red',
+          }));
+      }
+    hurt.forEach( (circ, i) => {
+      circ.draw();
+      if (directions[i] instanceof Array) {
+        circ[directions[i][0]] = true;
+        circ[directions[i][1]] = true;
+      } else {
+        circ[directions[i]] = true;
+      }
+      this.game.hurtCircs.push(circ);
+    });
+  }
+
+  
 
   gameOver(){
     if (this.radius < 5) {
