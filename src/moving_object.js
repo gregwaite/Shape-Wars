@@ -18,8 +18,8 @@ class MovingObject {
 	move() {
 		let velocity;
 		this.checkIfInBounds();
-		if (this.shape === 'final') {
-			velocity = this.vel;
+		if (this.game.waveNum > 14 && this.constructor.name !== "Circle") {
+			velocity = 	[1,1];
 		} else if (this.constructor.name === "Enemy" || this.constructor.name === "Health") {
 			velocity = [this.game.waveNum, this.game.waveNum];
 		} else {
@@ -71,7 +71,7 @@ class MovingObject {
 		return true;
 	}
 	inBoundsUp() {
-		if (this.constructor.name === "Circle" && this.pos[1] < 300){
+		if (this.constructor.name === "Circle" && this.pos[1] < 100){
 			return false;
 		} else if (this.pos[1] < 20) {
 			return false;

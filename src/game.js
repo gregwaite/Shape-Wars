@@ -60,9 +60,12 @@ class Game {
       this.handleMessage('norm', "Looks like they're breeding!");
     } else if (this.healthCount === 3 && this.waveNum === 5) {
       this.handleMessage('norm', "Oh no, the whole family!");
-    } else if (this.waveNum >= 10) {
+    } else if (this.waveNum >= 10 && this.waveNum < 15) {
       this.factoryNum = 10;
       this.handleMessage('norm', "Well, we're boned");
+    } else if (this.waveNum >= 15) {
+      this.factoryNum = 6;
+      this.handleMessage('norm', 'FINAL BOSS');
     }
   }
 
@@ -86,11 +89,11 @@ class Game {
   }
 
   checkWaves(){
-    if (this.waveNum < 4 && this.waveCount > 3) {
+    if (this.waveNum < 4 && this.waveCount > 1) {
       this.handleWaveCheck();
-    } else if (this.waveNum >= 4 && this.waveNum < 10 && this.waveCount > 5) {
+    } else if (this.waveNum >= 4 && this.waveNum < 10 && this.waveCount > 1) {
       this.handleWaveCheck();
-    } else if (this.waveNum >= 10 && this.waveCount > 15) {
+    } else if (this.waveNum >= 10 && this.waveCount > 1) {
       this.handleWaveCheck();
     } else {
       this.fleet.forEach(enemy => {
@@ -130,8 +133,10 @@ class Game {
         localShape = shapeNames[i%2];
       } else if (this.waveNum === 4) {
         localShape = "pent";
-      } else if (this.waveNum > 4) {
+      } else if (this.waveNum > 4 && this.waveNum < 15) {
         localShape = shapeNames[i%3];
+      } else {
+        localShape = 'final';
       }
       localFleet.push(new Enemy({ pos: [fleetObjPos, 40], vel: [0, 0], radius: 30, color: 'blue', game: this, shape: localShape}));
       fleetObjPos = fleetObjPos + Math.floor(800 / fleetCount);

@@ -17,7 +17,7 @@ class Enemy extends MovingObject {
       this.color = '#25fd03';
       this.drawPent();
     } else if (this.shape === 'final') {
-      this.color = 'white';
+      this.color = '#25fd03';
       this.drawFinalBoss();
     }
   }

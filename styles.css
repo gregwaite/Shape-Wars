@@ -1,4 +1,6 @@
 #game-canvas {
   background: black;
-  margin-left: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: column;
 }
