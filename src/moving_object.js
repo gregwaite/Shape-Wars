@@ -57,27 +57,42 @@ class MovingObject {
 	}
 
 	inBoundsRight(){
-		if (this.pos[0] > this.canvas.width - 30) {
+		if (this.constructor.name === "Hurt") {
+			if (this.pos[0] > this.canvas.width + 300) 
+			return false;
+		} else if (this.pos[0] > this.canvas.width - 30) {
 			return false;
 		}
 		return true;
 	}
 	inBoundsLeft() {
-		if (this.pos[0] < 20) {
+		if (this.constructor.name === "Hurt" ) {
+			if (this.pos[0] < -300) {
+				return false;
+			}
+		} else if (this.pos[0] < 20) {
 			return false;
 		}
 		return true;
 	}
 	inBoundsUp() {
-		if (this.constructor.name === "Circle" && this.pos[1] < 100){
+		if (this.constructor.name === "Circle" && this.pos[1] < 100) {
 			return false;
+		} else if (this.constructor.name === "Hurt") {
+			if (this.pos[1] < -300) {
+				return false;
+			}
 		} else if (this.pos[1] < 20) {
 			return false;
 		}
 		return true;
 	}
 	inBoundsDown() {
-		if (this.pos[1] > this.canvas.height - 5) {
+		if (this.constructor.name === "Hurt") {
+			if (this.pos[1] > this.canvas.height + 300) {
+				return false;
+			}
+		} else if (this.pos[1] > this.canvas.height - 5) {
 			return false;
 		}
 		return true;

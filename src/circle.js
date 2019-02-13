@@ -1,5 +1,5 @@
 const MovingObject = require("./moving_object.js");
-const Health = require("./health.js");
+const Hurt = require("./hurt.js");
 
 class Circle extends MovingObject {
   constructor(props) {
@@ -52,6 +52,7 @@ class Circle extends MovingObject {
   handleCollision(fleetObj, i) {
     if (this.gameOver()){
       this.game.gameOver = true;
+      this.game.handleMessage('game over');
     } else if (fleetObj.constructor.name === "Enemy"){
       this.radius -= 0.8;
       this.damageAnimation();
@@ -86,7 +87,7 @@ class Circle extends MovingObject {
 
     ]
       for (let i = 0; i < 8; i++) {
-          hurt.push(new Circle({
+          hurt.push(new Hurt({
             pos: hurtPos[i],
             vel: [1, 1],
             radius: 5,
