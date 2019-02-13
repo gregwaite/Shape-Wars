@@ -52,9 +52,11 @@ class Circle extends MovingObject {
   handleCollision(fleetObj, i) {
     if (this.gameOver()){
       this.game.gameOver = true;
-      this.game.handleMessage('game over');
-    } else if (fleetObj.constructor.name === "Enemy"){
-      this.radius -= 0.8;
+    } else if (fleetObj.constructor.name === "Enemy") {
+      this.radius -= 0.5;
+      if (this.gameOver()) {
+        this.game.gameOver = true;
+      }
       this.damageAnimation();
     } else if (fleetObj.constructor.name === "Health") {
       delete this.game.health[0];
@@ -96,7 +98,7 @@ class Circle extends MovingObject {
           hurt.push(new Hurt({
             pos: hurtPos[i],
             vel: [0, 0],
-            radius: 5,
+            radius: 6,
             color: 'red',
             game: this.game,
           }));

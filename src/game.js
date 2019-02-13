@@ -33,9 +33,6 @@ class Game {
   }
 
   draw(){
-    if (this.gameOver) {
-      this.handleMessage('game over');
-    }
     this.ctx.clearRect(0, 0, 800, 600);
     this.messages();
     this.circle.draw();
@@ -123,7 +120,7 @@ class Game {
     this.circle = new Circle({ 
       pos: [400, 570], 
       vel: [0,0], 
-      radius: 10, 
+      radius: 15, 
       color: 'red', 
       game: this,
     });
