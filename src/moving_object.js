@@ -32,11 +32,7 @@ class MovingObject {
 			this.pos[0] += velocity[0] + 2;
 		} 
 		if (this.down) {
-			if (this.constructor.name === "Enemy"){
-				velocity[1] = this.vel[1];
-			} else {
-				this.vel[1] += 0.5;
-			}
+			this.vel[1] += 0.5;
 			this.pos[1] += velocity[1] + 3;
 		} 
 		if (this.up) {

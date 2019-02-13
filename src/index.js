@@ -5,6 +5,6 @@ console.log("Webpack is working!");
 
 document.addEventListener("DOMContentLoaded", () => {
   const game = new Game();
-  game.start();
+  game.startScreen();
 });
 

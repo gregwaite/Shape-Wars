@@ -43,6 +43,10 @@ class Circle extends MovingObject {
     } else if (key.code === "ArrowRight" || key.code === "KeyD") {
       this.right = true;
     } else if (key.code === "ArrowUp" || key.code === "KeyW") {
+      if (!this.game.started) {
+        this.game.started = true;
+        this.game.start();
+      }
       this.up = true;
     } else if (key.code === "ArrowDown" || key.code === "KeyS") {
       this.down = true;

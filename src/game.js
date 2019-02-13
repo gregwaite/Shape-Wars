@@ -19,12 +19,19 @@ class Game {
     this.factoryNum = 6;
     this.hurtCircs = [];
     this.firstGame = true;
+    this.started = false;
     this.animateReq = null;
+  }
+
+  startScreen() {
+    this.player();
+    this.circle.ctx.font = "30px Helvetica";
+    this.circle.ctx.strokeStyle = 'white';
+    this.circle.ctx.strokeText("Press UP or A to start", (this.canvas.width / 2) + 50, this.canvas.height / 2);
   }
 
   start(){
     this.enemyFactory(this.factoryNum);
-    this.player();
     this.health = [new Health({
       pos: [400, 50],
       vel: [0, 0],
@@ -32,18 +39,11 @@ class Game {
       game: this,
     })];
     this.animateReq = requestAnimationFrame(this.draw);
-    // this.draw();
   }
 
   restart(){
-    this.fleet = [];
-    this.circle = null;
-    this.canvas = document.getElementById('game-canvas');
-    this.ctx = this.canvas.getContext('2d');
-    this.draw = this.draw.bind(this);
     this.waveNum = 1;
     this.waveCount = 1;
-    this.health = null;
     this.healthCount = 0;
     this.gameOver = false;
     this.finalWave = null;
@@ -51,6 +51,7 @@ class Game {
     this.factoryNum = 6;
     this.hurtCircs = [];
     this.firstGame = false;
+    this.player();
     cancelAnimationFrame(this.animateReq);
     this.start();
   }
@@ -88,7 +89,7 @@ class Game {
       this.handleMessage('norm', "Looks like they're breeding!");
     } else if (this.healthCount === 3 && this.waveNum === 5) {
       this.handleMessage('norm', "Oh no, the whole family!");
-    } else if (this.waveNum > 10) {
+    } else if (this.waveNum >= 10) {
       this.factoryNum = 10;
       this.handleMessage('norm', "Well, we're boned");
     }
@@ -121,6 +122,7 @@ class Game {
     } else if (this.waveNum >= 4 && this.waveNum < 10 && this.waveCount > 5) {
       this.handleWaveCheck();
     } else if (this.waveNum >= 10 && this.waveCount > 9) {
+      debugger
       this.handleWaveCheck();
     } else {
       this.fleet.forEach(enemy => {
