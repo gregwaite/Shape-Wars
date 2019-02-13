@@ -33,6 +33,9 @@ class Game {
   }
 
   draw(){
+    if (this.gameOver) {
+      this.handleMessage('game over');
+    }
     this.ctx.clearRect(0, 0, 800, 600);
     this.messages();
     this.circle.draw();
@@ -53,11 +56,11 @@ class Game {
   messages(){
     if (this.gameOver) {
       this.handleMessage('game over');
-    } else if (this.healthCount === 0 && this.waveNum === 1 && this.waveCount === 1) {
+    } else if (this.healthCount < 3 && this.waveNum === 1) {
       this.handleMessage('norm', "This is your family. Eat them to gain their courage"); 
-    } else if (this.healthCount === 3 && this.waveNum === 1 && this.waveCount === 1) {
+    } else if (this.healthCount === 3 && this.waveNum === 1) {
       this.handleMessage('norm', "Oh no! The triangles are attacking cause you're a cannibal!")
-    } else if (this.healthCount === 3 && this.waveNum === 2 && this.waveCount === 1) {
+    } else if (this.healthCount === 3 && this.waveNum === 2) {
       this.handleMessage('norm', "Oh no! The rectangles don't like cannibalism either!");;
     } else if (this.healthCount === 3 && this.waveNum === 3) {
       this.handleMessage('norm', "Ahh! They're working together!");
