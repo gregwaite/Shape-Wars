@@ -58,7 +58,7 @@ class MovingObject {
 
 	inBoundsRight(){
 		if (this.constructor.name === "Hurt") {
-			if (this.pos[0] > this.canvas.width - 30) {
+			if (this.pos[0] > this.canvas.width) {
 				delete this.game.hurtCircs[this.game.hurtCircs.indexOf(this)];
 				return false;
 			}
@@ -69,7 +69,7 @@ class MovingObject {
 	}
 	inBoundsLeft() {
 		if (this.constructor.name === "Hurt" ) {
-			if (this.pos[0] < 20) {
+			if (this.pos[0] < 0) {
 				delete this.game.hurtCircs[this.game.hurtCircs.indexOf(this)];
 				return false;
 			}
@@ -82,7 +82,7 @@ class MovingObject {
 		if (this.constructor.name === "Circle" && this.pos[1] < 100) {
 			return false;
 		} else if (this.constructor.name === "Hurt") {
-			if (this.pos[1] < 20) {
+			if (this.pos[1] < 0) {
 				delete this.game.hurtCircs[this.game.hurtCircs.indexOf(this)];
 				return false;
 			}
@@ -92,8 +92,10 @@ class MovingObject {
 		return true;
 	}
 	inBoundsDown() {
-		if (this.constructor.name === "Hurt") {
-			if (this.pos[1] > this.canvas.height - 5) {
+		if (this.constructor.name === "Circle" && this.pos[1] > this.canvas.height - 30) {
+			return false;
+		} else if (this.constructor.name === "Hurt") {
+			if (this.pos[1] > this.canvas.height) {
 				delete this.game.hurtCircs[this.game.hurtCircs.indexOf(this)];
 				return false;
 			}

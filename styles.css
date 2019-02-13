@@ -1,6 +1,34 @@
-#game-canvas {
-  background: black;
+.whole {
   display: flex;
-  justify-content: center;
-  align-items: column;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.canvas {
+  display: flex; 
+  align-items: flex-end;
+}
+.canvas > li{
+  list-style: none;
+  margin-bottom: 250px;
+  margin-left: 10px;
+}
+#game-canvas {
+  background: #1b1313; 
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+}
+
+.links > a {
+  margin-bottom: 100px;
+  margin-right: 20px;
 }

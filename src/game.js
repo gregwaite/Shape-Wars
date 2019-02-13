@@ -97,7 +97,7 @@ class Game {
 
   handleMessage(type, text) {
     if (type === 'norm') {
-      this.circle.ctx.font = "14px Helvetica";
+      this.circle.ctx.font = "17px Courier, monospace";
       this.circle.ctx.fillStyle = 'white';
       this.circle.ctx.fillText(text, this.canvas.width / 20, this.canvas.height / 2);
     } else if (type === 'game over') {
@@ -106,12 +106,30 @@ class Game {
         this.finalWave = this.waveNum;
       }
       this.waveNum = this.finalWave;
+      this.circle.ctx.font = "50px Helvetica";
+      this.circle.ctx.strokeStyle = 'whtie';
+      this.circle.ctx.strokeText("Game Over", (this.canvas.width / 2) + 40, this.canvas.height / 2);
+      this.circle.ctx.font = "24px Helvetica";
+      this.circle.ctx.strokeStyle = 'white';
+      this.circle.ctx.strokeText("Time is a flat circle", (this.canvas.width / 2) + 50, this.canvas.height / 2 + 50);
       this.circle.ctx.font = "30px Helvetica";
       this.circle.ctx.strokeStyle = 'white';
-      this.circle.ctx.strokeText("Game Over", (this.canvas.width / 2) + 50, this.canvas.height / 2);
-      this.circle.ctx.font = "14px Helvetica";
+      this.circle.ctx.strokeText("-", 690, this.canvas.height / 2 + 50);
+      this.circle.ctx.font = "30px Helvetica";
+      this.circle.ctx.strokeStyle = 'white';
+      this.circle.ctx.strokeText("-", 710, this.canvas.height / 2 + 50);
+      this.circle.ctx.font = "30px Helvetica";
+      this.circle.ctx.strokeStyle = 'white';
+      this.circle.ctx.strokeText("-", 730, this.canvas.height / 2 + 50);
+      this.circle.ctx.font = "30px Helvetica";
+      this.circle.ctx.strokeStyle = 'white';
+      this.circle.ctx.strokeText("-", 750, this.canvas.height / 2 + 50);
+      this.circle.ctx.font = "30px Helvetica";
+      this.circle.ctx.strokeStyle = 'white';
+      this.circle.ctx.strokeText(">", 770, this.canvas.height / 2 + 49);
+      this.circle.ctx.font = "17px Courier, monospace";
       this.circle.ctx.fillStyle = 'white';
-      this.circle.ctx.fillText(`You made it to wave ${this.finalWave}. Good job?`, this.canvas.width / 20, this.canvas.height / 2);
+      this.circle.ctx.fillText(`You made it to wave ${this.finalWave}. Good job?`, this.canvas.width / 2 - 100, 200);
       this.circle.damageAnimation();
     }
   }
