@@ -18,6 +18,8 @@ class Game {
     this.neverOver = true;
     this.factoryNum = 6;
     this.hurtCircs = [];
+    this.firstGame = true;
+    this.animateReq = null;
   }
 
   start(){
@@ -29,7 +31,28 @@ class Game {
       radius: 5,
       game: this,
     })];
-    this.draw();
+    this.animateReq = requestAnimationFrame(this.draw);
+    // this.draw();
+  }
+
+  restart(){
+    this.fleet = [];
+    this.circle = null;
+    this.canvas = document.getElementById('game-canvas');
+    this.ctx = this.canvas.getContext('2d');
+    this.draw = this.draw.bind(this);
+    this.waveNum = 1;
+    this.waveCount = 1;
+    this.health = null;
+    this.healthCount = 0;
+    this.gameOver = false;
+    this.finalWave = null;
+    this.neverOver = true;
+    this.factoryNum = 6;
+    this.hurtCircs = [];
+    this.firstGame = false;
+    cancelAnimationFrame(this.animateReq);
+    this.start();
   }
 
   draw(){
@@ -47,7 +70,7 @@ class Game {
       this.checkWaves();
     }
     this.collisionDetection();
-    requestAnimationFrame(this.draw);
+    this.animateReq = requestAnimationFrame(this.draw);
   }
 
   messages(){
@@ -124,12 +147,14 @@ class Game {
       color: 'red', 
       game: this,
     });
-    document.addEventListener("keydown", (key) => {
-      this.circle.handleKeypress(key);
-    });
-    document.addEventListener("keyup", (key) => {
-      this.circle.stopMovement(key);
-    });
+    if (this.firstGame){
+      document.addEventListener("keydown", (key) => {
+        this.circle.handleKeypress(key);
+      });
+      document.addEventListener("keyup", (key) => {
+        this.circle.stopMovement(key);
+      });
+    }
   }
 
   enemyFactory(fleetCount) {

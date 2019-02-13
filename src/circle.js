@@ -46,6 +46,8 @@ class Circle extends MovingObject {
       this.up = true;
     } else if (key.code === "ArrowDown" || key.code === "KeyS") {
       this.down = true;
+    } else if (key.code === "Enter") {
+      this.game.restart();
     }
   }
 
