@@ -140,7 +140,6 @@ class Game {
     } else if (this.waveNum >= 4 && this.waveNum < 10 && this.waveCount > 5) {
       this.handleWaveCheck();
     } else if (this.waveNum >= 10 && this.waveCount > 9) {
-      debugger
       this.handleWaveCheck();
     } else {
       this.fleet.forEach(enemy => {

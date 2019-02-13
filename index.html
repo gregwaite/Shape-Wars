@@ -11,18 +11,25 @@
     <script src="./dist/main.js"></script>
     
     <script type="application/javascript" src="./dist/main.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js"
+        integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" 
+        crossorigin="anonymous">
+    </script>
   </head>
-  <body>
+  <body class="body">
     <div class="whole">
       <header class="header">
         <h1>Shape Wars</h1>
-        <p>ARROW KEYS or WASD to MOVE</p>
+        <p>Press WASD or Arrow Keys to Move</p>
       </header>
       <div class="canvas">
         <div class="links">
-          <a href="http://www.greg-waite.com/">Personal Site</a>
-          <a href="https://github.com/gregwaite/Str8-Blobbin/">GitHub</a>
-          <a href="https://www.linkedin.com/in/greg-waite-26a92a175/">LinkedIn</a>
+          <a href="http://www.greg-waite.com/" class="personal-site" target="_blank"><i class="fas fa-user-circle fa-3x"></i></a>
+          <a href="mailto: waite68@gmail.com" class="email" target="_blank"><i class="far fa-envelope fa-3x"></i></a>
+          <a href="https://github.com/gregwaite/Str8-Blobbin/" class="github" target="_blank"><i
+              class="fab fa-github fa-3x"></i></a>
+          <a href="https://www.linkedin.com/in/greg-waite-26a92a175/" class="linkedin" target="_blank"><i
+              class="fab fa-linkedin fa-3x"></i></a>
         </div>
         <canvas id="game-canvas" width=800px height=600px></canvas>
         <li>Press ENTER to restart</li>
