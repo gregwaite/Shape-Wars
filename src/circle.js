@@ -65,15 +65,21 @@ class Circle extends MovingObject {
 
   damageAnimation() {
     let hurt = [];
+    let diff;
+    if (Math.floor(Math.random() * 2) === 0) {
+      diff = 1;
+    } else {
+      diff = 5;
+    }
     const hurtPos = [
-      [this.pos[0] + 30, this.pos[1]],
-      [this.pos[0] + 30, this.pos[1] + 30],
-      [this.pos[0], this.pos[1] + 30],
-      [this.pos[0] - 30, this.pos[1] + 30],
-      [this.pos[0] - 30, this.pos[1]],
-      [this.pos[0] - 30, this.pos[1] - 30],
-      [this.pos[0], this.pos[1] - 30],
-      [this.pos[0] + 30, this.pos[1] - 30],
+      [this.pos[0] + diff, this.pos[1]],
+      [this.pos[0] + diff, this.pos[1] + diff],
+      [this.pos[0], this.pos[1] + diff],
+      [this.pos[0] - diff, this.pos[1] + diff],
+      [this.pos[0] - diff, this.pos[1]],
+      [this.pos[0] - diff, this.pos[1] - diff],
+      [this.pos[0], this.pos[1] - diff],
+      [this.pos[0] + diff, this.pos[1] - diff],
     ];
     const directions = [
       "right",
@@ -89,9 +95,10 @@ class Circle extends MovingObject {
       for (let i = 0; i < 8; i++) {
           hurt.push(new Hurt({
             pos: hurtPos[i],
-            vel: [1, 1],
+            vel: [0, 0],
             radius: 5,
             color: 'red',
+            game: this.game,
           }));
       }
     hurt.forEach( (circ, i) => {

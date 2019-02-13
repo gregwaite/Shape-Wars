@@ -34,10 +34,10 @@ class Game {
 
   draw(){
     this.ctx.clearRect(0, 0, 800, 600);
-    this.collisionDetection();
+    this.messages();
     this.circle.draw();
     this.circle.move();
-    this.messages();
+    this.moveHurtCircs();
     if (this.healthCount < 3) {
       this.moveHealthDown();
       if (this.health[0]){
@@ -46,7 +46,7 @@ class Game {
     } else {
       this.checkWaves();
     }
-    this.moveHurtCircs();
+    this.collisionDetection();
     requestAnimationFrame(this.draw);
   }
 
@@ -88,6 +88,7 @@ class Game {
       this.circle.ctx.font = "14px Helvetica";
       this.circle.ctx.fillStyle = 'white';
       this.circle.ctx.fillText(`You made it to wave ${this.finalWave}. Good job?`, this.canvas.width / 20, this.canvas.height / 2);
+      this.circle.damageAnimation();
     }
   }
 
@@ -107,9 +108,11 @@ class Game {
   }
 
   handleWaveCheck(){
+    if (!this.gameOver) {
+      this.waveNum += 1;
+      this.healthCount = 0;
+    }
     this.waveCount = 1;
-    this.waveNum += 1;
-    this.healthCount = 0;
     this.enemyFactory(this.factoryNum);
   }
 
