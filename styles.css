@@ -1,6 +1,5 @@
 .body {
-  background: #4c4c4c;
-  color: white;
+  color: black;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
 }
 .whole {
@@ -13,6 +12,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.title {
+  font-size: 30px;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+
+
+.move-instructions {
+  background: white;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+img[alt^="arrow"]{
+  height: 55px;
+  width: 62px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+img[alt^="wasd"]{
+  height: 40px;
+  width: 50px;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .canvas {
@@ -34,7 +59,7 @@
 }
 
 .links > a {
-  color: white;
+  color:black;
   margin-bottom: 80px;
   margin-right: 40px;
 }
