@@ -134,9 +134,9 @@ class Game {
   }
 
   checkWaves(){
-    if (this.waveNum < 4 && this.waveCount > 1) {
+    if (this.waveNum < 4 && this.waveCount > 3) {
       this.handleWaveCheck();
-    } else if (this.waveNum >= 4 && this.waveNum < 10 && this.waveCount > 1) {
+    } else if (this.waveNum >= 4 && this.waveNum < 10 && this.waveCount > 6) {
       this.handleWaveCheck();
     } else if (this.waveNum >= 10 && this.waveCount > 9) {
       this.factoryNum = 10;
