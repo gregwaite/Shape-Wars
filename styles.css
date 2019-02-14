@@ -1,6 +1,7 @@
 .body {
   color: black;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  background-image: url(./images/background.png);
 }
 .whole {
   display: flex;
@@ -45,6 +46,7 @@ img[alt^="wasd"]{
   align-items: flex-end;
 }
 .canvas > li{
+  color: black;
   list-style: none;
   margin-bottom: 250px;
   margin-left: 10px;
