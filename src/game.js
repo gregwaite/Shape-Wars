@@ -89,8 +89,7 @@ class Game {
       this.handleMessage('norm', "Looks like they're breeding!");
     } else if (this.healthCount === 3 && this.waveNum === 5) {
       this.handleMessage('norm', "Oh no, the whole family!");
-    } else if (this.waveNum >= 10) {
-      this.factoryNum = 10;
+    } else if (this.waveNum > 10) {
       this.handleMessage('norm', "Well, we're boned");
     }
   }
@@ -135,11 +134,12 @@ class Game {
   }
 
   checkWaves(){
-    if (this.waveNum < 4 && this.waveCount > 3) {
+    if (this.waveNum < 4 && this.waveCount > 1) {
       this.handleWaveCheck();
-    } else if (this.waveNum >= 4 && this.waveNum < 10 && this.waveCount > 5) {
+    } else if (this.waveNum >= 4 && this.waveNum < 10 && this.waveCount > 1) {
       this.handleWaveCheck();
     } else if (this.waveNum >= 10 && this.waveCount > 9) {
+      this.factoryNum = 10;
       this.handleWaveCheck();
     } else {
       this.fleet.forEach(enemy => {

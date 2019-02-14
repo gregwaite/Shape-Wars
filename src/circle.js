@@ -62,7 +62,7 @@ class Circle extends MovingObject {
     if (this.gameOver()){
       this.game.gameOver = true;
     } else if (fleetObj.constructor.name === "Enemy") {
-      this.radius -= 0.5;
+      this.radius -= 0.1;
       if (this.gameOver()) {
         this.game.gameOver = true;
       }
