@@ -62,6 +62,9 @@ class Game {
     this.circle.draw();
     this.circle.move();
     this.moveHurtCircs();
+    this.hurtCircs = this.hurtCircs.filter(hurt =>{
+      return hurt !== undefined;
+    });
     if (this.healthCount < 3) {
       this.moveHealthDown();
       if (this.health[0]){
