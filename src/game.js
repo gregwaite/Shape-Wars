@@ -27,7 +27,7 @@ class Game {
     this.player();
     this.circle.ctx.font = "30px Helvetica";
     this.circle.ctx.strokeStyle = 'white';
-    this.circle.ctx.strokeText("Press W or UP to start", (this.canvas.width / 2) + 50, this.canvas.height / 2);
+    this.circle.ctx.strokeText("Press UP or W to start", (this.canvas.width / 2) + 50, this.canvas.height / 2);
   }
 
   start(){
