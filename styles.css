@@ -1,7 +1,11 @@
+#html {
+  height: 100%
+}
 .body {
   color: black;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   background-image: url(./images/background.png);
+  height: 100%;
 }
 .whole {
   display: flex;
