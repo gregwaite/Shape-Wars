@@ -50,3 +50,56 @@
 
   ![](https://i.imgflip.com/2u0j0l.gif)
     
+    This code draws the damage animation, and, once you lose, the animation above. I filter out the damage circles that go off screen to prevent slowdown (before filtering, the number of dots drawn quickly reached over 25,000)
+    
+```javascript
+  damageAnimation() {
+    let hurt = [];
+    let diff;
+    if (Math.floor(Math.random() * 2) === 0) {
+      diff = 1;
+    } else {
+      diff = 5;
+    }
+    const hurtPos = [
+      [this.pos[0] + diff, this.pos[1]],
+      [this.pos[0] + diff, this.pos[1] + diff],
+      [this.pos[0], this.pos[1] + diff],
+      [this.pos[0] - diff, this.pos[1] + diff],
+      [this.pos[0] - diff, this.pos[1]],
+      [this.pos[0] - diff, this.pos[1] - diff],
+      [this.pos[0], this.pos[1] - diff],
+      [this.pos[0] + diff, this.pos[1] - diff],
+    ];
+    const directions = [
+      "right",
+      ["down", "right"],
+      "down",
+      ["down", "left"],
+      "left",
+      ["up", "left"],
+      "up",
+      ["up", "right"],
+
+    ]
+      for (let i = 0; i < 8; i++) {
+          hurt.push(new Hurt({
+            pos: hurtPos[i],
+            vel: [0, 0],
+            radius: 6,
+            color: 'red',
+            game: this.game,
+          }));
+      }
+    hurt.forEach( (circ, i) => {
+      circ.draw();
+      if (directions[i] instanceof Array) {
+        circ[directions[i][0]] = true;
+        circ[directions[i][1]] = true;
+      } else {
+        circ[directions[i]] = true;
+      }
+      this.game.hurtCircs.push(circ);
+    });
+  }
+
