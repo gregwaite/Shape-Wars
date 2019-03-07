@@ -1,6 +1,7 @@
 const Circle = require("./circle.js");
 const Enemy = require("./enemy.js");
 const Health = require("./health.js");
+// const Attack = require("./attack.js");
 
 class Game {
   constructor() {
@@ -21,6 +22,7 @@ class Game {
     this.firstGame = true;
     this.started = false;
     this.animateReq = null;
+    this.attack = [];
   }
 
   startScreen() {
@@ -62,8 +64,15 @@ class Game {
     this.circle.draw();
     this.circle.move();
     this.moveHurtCircs();
+    this.moveAttack();
     this.hurtCircs = this.hurtCircs.filter(hurt =>{
       return hurt !== undefined;
+    });
+    this.attack = this.attack.filter(attack =>{
+      return attack !== undefined;
+    });
+    this.fleet = this.fleet.filter(enemy =>{
+      return enemy !== undefined;
     });
     if (this.healthCount < 3) {
       this.moveHealthDown();
@@ -141,7 +150,7 @@ class Game {
       this.handleWaveCheck();
     } else if (this.waveNum >= 4 && this.waveNum < 10 && this.waveCount > 6) {
       this.handleWaveCheck();
-    } else if (this.waveNum >= 10 && this.waveCount > 9) {
+    } else if (this.waveNum >= 10 && this.waveCount > 20) {
       this.factoryNum = 10;
       this.handleWaveCheck();
     } else {
@@ -244,6 +253,14 @@ class Game {
       });
     }
   }
+  moveAttack() {
+    if (this.attack.length > 1) {
+      this.attack.forEach(attackCirc => {
+        attackCirc.move();
+        attackCirc.draw();
+      });
+    }
+  }
 
   collisionDetection(){
     this.fleet.forEach((fleetObj, i) => {
@@ -263,6 +280,17 @@ class Game {
       if (distance < this.circle.radius + healthObj.radius) {
         this.circle.handleCollision(healthObj, i);
       }
+    });
+    this.attack.forEach((attackObj, iA) => {
+      this.fleet.forEach((fleetObj, iF) => {
+        let dx = fleetObj.pos[0] - attackObj.pos[0];
+        let dy = fleetObj.pos[1] - attackObj.pos[1];
+        let distance = Math.sqrt(dx * dx + dy * dy);
+  
+        if (distance < fleetObj.radius + attackObj.radius) {
+          attackObj.handleCollision(fleetObj, iA, iF);
+        }
+      });
     });
   }
 }

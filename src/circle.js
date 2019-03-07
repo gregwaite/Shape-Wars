@@ -1,9 +1,11 @@
 const MovingObject = require("./moving_object.js");
 const Hurt = require("./hurt.js");
+const Attack = require("./attack.js");
 
 class Circle extends MovingObject {
   constructor(props) {
     super(props);
+    this.attacking = false;
   }
 
   draw() {
@@ -34,6 +36,8 @@ class Circle extends MovingObject {
     } else if (key.code === "ArrowDown" || key.code === "KeyS") {
       this.down = false;
       this.vel[1] = 0;
+    } else if (key.code === "Space") {
+      this.attacking = false;
     }
   }
 
@@ -52,6 +56,8 @@ class Circle extends MovingObject {
       this.down = true;
     } else if (key.code === "Enter" && this.game.started) {
       this.game.restart();
+    } else if (key.code === "Space"){
+      this.attacking = true;
     } else if (key.code === "Enter") {
       this.game.started = true;
       this.game.start();
@@ -62,7 +68,7 @@ class Circle extends MovingObject {
     if (this.gameOver()){
       this.game.gameOver = true;
     } else if (fleetObj.constructor.name === "Enemy") {
-      this.radius -= 0.7;
+      this.radius -= 1;
       if (this.gameOver()) {
         this.game.gameOver = true;
       }
@@ -70,12 +76,12 @@ class Circle extends MovingObject {
     } else if (fleetObj.constructor.name === "Health") {
       delete this.game.health[0];
       this.game.healthCount += 1;
-      this.radius += 7;
+      this.radius += 4;
     }
   }
 
   damageAnimation() {
-    let hurt = [];
+   let hurt = [];
     let diff;
     if (Math.floor(Math.random() * 2) === 0) {
       diff = 1;
@@ -104,13 +110,14 @@ class Circle extends MovingObject {
 
     ]
       for (let i = 0; i < 8; i++) {
-          hurt.push(new Hurt({
-            pos: hurtPos[i],
-            vel: [0, 0],
-            radius: 6,
-            color: 'red',
-            game: this.game,
-          }));
+        hurt.push(new Hurt({
+          pos: hurtPos[i],
+          vel: [0, 0],
+          radius: 6,
+          color: 'red',
+          game: this.game,
+          shape: 'circle',
+        }));
       }
     hurt.forEach( (circ, i) => {
       circ.draw();
@@ -121,6 +128,32 @@ class Circle extends MovingObject {
         circ[directions[i]] = true;
       }
       this.game.hurtCircs.push(circ);
+    });
+  }
+
+  attack(){
+    let attack = [];
+    let diff;
+    if (Math.floor(Math.random() * 2) === 0) {
+      diff = 1;
+    } else {
+      diff = 5;
+    }
+    for (let i = 0; i < 3; i++) {
+      if (this.game.attack.length < 2){
+          attack.push(new Attack({
+          pos: [this.pos[0], this.pos[1] - diff],
+          vel: [0, 0],
+          radius: 7,
+          color: 'white',
+          game: this.game,
+        }));
+      }
+    }
+
+    attack.forEach((circ) => {
+      circ.draw();
+      this.game.attack.push(circ);
     });
   }
 

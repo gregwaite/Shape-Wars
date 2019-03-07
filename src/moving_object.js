@@ -39,6 +39,9 @@ class MovingObject {
 			this.vel[1] += 0.3;
 			this.pos[1] -= velocity[1] + 2;
 		}
+		if (this.attacking) {
+			this.attack();
+		}
 	}
 
 	checkIfInBounds(){
@@ -86,7 +89,12 @@ class MovingObject {
 				delete this.game.hurtCircs[this.game.hurtCircs.indexOf(this)];
 				return false;
 			}
-		} else if (this.pos[1] < 20) {
+		} else if (this.constructor.name === "Attack"){
+			if (this.pos[1] < 0){
+				delete this.game.attack[this.game.attack.indexOf(this)];
+				return false;
+			}
+		}else if (this.pos[1] < 20) {
 			return false;
 		}
 		return true;
