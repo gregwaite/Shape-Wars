@@ -254,12 +254,10 @@ class Game {
     }
   }
   moveAttack() {
-    if (this.attack.length > 1) {
-      this.attack.forEach(attackCirc => {
-        attackCirc.move();
-        attackCirc.draw();
-      });
-    }
+    this.attack.forEach(attackCirc => {
+      attackCirc.move();
+      attackCirc.draw();
+    });
   }
 
   collisionDetection(){

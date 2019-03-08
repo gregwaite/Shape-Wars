@@ -5,6 +5,7 @@ class Attack extends MovingObject{
     super(props);
     this.color = "white";
     this.up = true;
+    this.startPos = props.startPos;
   }
 
   draw() {

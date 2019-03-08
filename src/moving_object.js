@@ -90,7 +90,7 @@ class MovingObject {
 				return false;
 			}
 		} else if (this.constructor.name === "Attack"){
-			if (this.pos[1] < 0){
+			if (this.pos[1] < 50){
 				delete this.game.attack[this.game.attack.indexOf(this)];
 				return false;
 			}

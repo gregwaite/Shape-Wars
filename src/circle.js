@@ -139,20 +139,20 @@ class Circle extends MovingObject {
     } else {
       diff = 5;
     }
-    for (let i = 0; i < 3; i++) {
-      if (this.game.attack.length < 2){
+    for (let i = 0; i < 1; i++) {
+      if (this.game.attack.every(att => att.startPos - att.pos[1] > 120)){
           attack.push(new Attack({
-          pos: [this.pos[0], this.pos[1] - diff],
+          pos: [this.pos[0], this.pos[1] - this.radius],
           vel: [0, 0],
           radius: 7,
           color: 'white',
           game: this.game,
+          startPos: this.pos[1],
         }));
       }
     }
 
     attack.forEach((circ) => {
-      circ.draw();
       this.game.attack.push(circ);
     });
   }
