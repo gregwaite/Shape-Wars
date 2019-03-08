@@ -133,12 +133,12 @@ class Circle extends MovingObject {
 
   attack(){
     let attack = [];
-    let diff;
-    if (Math.floor(Math.random() * 2) === 0) {
-      diff = 1;
-    } else {
-      diff = 5;
-    }
+    // let diff;
+    // if (Math.floor(Math.random() * 2) === 0) {
+    //   diff = 1;
+    // } else {
+    //   diff = 5;
+    // }
     for (let i = 0; i < 1; i++) {
       if (this.game.attack.every(att => att.startPos - att.pos[1] > 120)){
           attack.push(new Attack({

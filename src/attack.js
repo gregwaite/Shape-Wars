@@ -25,9 +25,11 @@ class Attack extends MovingObject{
   }
 
   handleCollision(fleetObj, iA, iF) {
-    delete this.game.attack[iA];
-    delete this.game.fleet[iF];
-    fleetObj.enemyDamageAnimation();
+    if (fleetObj.pos[1] > 50){
+      delete this.game.attack[iA];
+      delete this.game.fleet[iF];
+      fleetObj.enemyDamageAnimation();
+    }
   }
   
 
