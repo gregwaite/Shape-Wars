@@ -20,23 +20,6 @@
 - HTML5 Canvas for DOM manipulation and rendering,
 - Web Audio API for sound generation, processing and control. WebAudioAPI allows for simultaneous sounds with more dependable time triggering
 - Webpack to bundle and serve up the various scripts.
-    
-### Implementation Timeline
-
-- [x] Determine necessary files and structure of the game
-- [x] Write basic logic for all files
-
-- [x] Have background and initialize buttons working
-- [x] Player movement and blob design complete
-
-- [x] Collision detection designed
-- [x] Health deterioration designed
-
-- [x] Collision detection for health and appropriate health increase designed
-- [x] Have one full level ready for completion
-
-- [x] Set up links and overall design of page
-- [x] Refine styling for game
       
   **Bonus features:**
 - [ ] Difficulty settings
