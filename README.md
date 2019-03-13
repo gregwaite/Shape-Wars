@@ -2,7 +2,7 @@
 
 # Shape Wars
 
-### [Shape Wars live](http://www.greg-waite.com/Str8-Blobbin/)
+### [Shape Wars live](http://www.greg-waite.com/Shape-Wars/)
 
 ### Background and overview
   Shape Wars is an upscrolling wave game where the player is a red circle. 
