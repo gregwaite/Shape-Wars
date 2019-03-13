@@ -11,8 +11,8 @@
   
 ### Functionality and MVP Features
   In Str8 Blobbin users will be able to:
-- [x] Play as many waves as you can make, with left, right, up and down inputs
-- [x] Waves increasing number and speed of obstacles and health, default starting size of blob
+- [x] Play as many waves as you can make it to, with left, right, up and down inputs
+- [x] Waves increasing number and speed of obstacles and health
 - [x] Start, restart the game
 
 ### Architecture and Technologies
