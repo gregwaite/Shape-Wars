@@ -29,7 +29,7 @@ class Game {
     this.player();
     this.circle.ctx.font = "30px Helvetica";
     this.circle.ctx.strokeStyle = 'white';
-    this.circle.ctx.strokeText("Press UP or W to start", (this.canvas.width / 2) + 50, this.canvas.height / 2);
+    this.circle.ctx.strokeText("Press UP or W to start (SPACEBAR to attack)", (this.canvas.width / 2) - 250, this.canvas.height / 2);
   }
 
   start(){
@@ -92,9 +92,9 @@ class Game {
     } else if (this.healthCount < 3 && this.waveNum === 1) {
       this.handleMessage('norm', "This is your family. Eat them to gain their courage"); 
     } else if (this.healthCount === 3 && this.waveNum === 1) {
-      this.handleMessage('norm', "Oh no! The triangles are attacking cause you're a cannibal!")
+      this.handleMessage('attackback', "Oh no! The triangles are attacking cause you're a cannibal! Use SPACEBAR to attack back!");
     } else if (this.healthCount === 3 && this.waveNum === 2) {
-      this.handleMessage('norm', "Oh no! The rectangles don't like cannibalism either!");;
+      this.handleMessage('norm', "Oh no! The rectangles don't like cannibalism either!");
     } else if (this.healthCount === 3 && this.waveNum === 3) {
       this.handleMessage('norm', "Ahh! They're working together!");
     } else if (this.healthCount === 3 && this.waveNum === 4) {
@@ -109,6 +109,10 @@ class Game {
   handleMessage(type, text) {
     if (type === 'norm') {
       this.circle.ctx.font = "17px Courier, monospace";
+      this.circle.ctx.fillStyle = 'white';
+      this.circle.ctx.fillText(text, this.canvas.width / 20, this.canvas.height / 2);
+    } else if (type === 'attackback') {
+      this.circle.ctx.font = "14px Courier, monospace";
       this.circle.ctx.fillStyle = 'white';
       this.circle.ctx.fillText(text, this.canvas.width / 20, this.canvas.height / 2);
     } else if (type === 'game over') {

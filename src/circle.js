@@ -57,6 +57,10 @@ class Circle extends MovingObject {
     } else if (key.code === "Enter" && this.game.started) {
       this.game.restart();
     } else if (key.code === "Space"){
+      if (!this.game.started) {
+        this.game.started = true;
+        this.game.start();
+      }
       this.attacking = true;
     } else if (key.code === "Enter") {
       this.game.started = true;
